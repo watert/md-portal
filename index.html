@@ -17,22 +17,14 @@
 	<script src="libs/jQuery.lightDataBind.js"></script>
 	<script src="libs/markdown.js"></script>
 
+	<script src="classes.js"></script>
 	<script>
-		window.App = {};
-		$(function(){
-			var model = new Backbone.Model({
-				id:"md-portal",
-				subtitle:"test Subtitle"
-			});
-			model.url = "data/file_rest.php?f=md-portal.json"
-			App.model = model;
-			model.fetch({
-				success:function(){
-					model.trigger("sync");
-				}
-			});
 
+		var init = (function(){
+			var App = window.App;
+			var model = App.initModel();
 			var tmplActions = '<p class="actions"><a href="" class="btn btn-mini btn-edit">Edit</a></p>';
+
 			var updateDom = function updateDom($el){
 				var key = $el.attr("data-markdown");
 				var value = App.model.get(key);
@@ -55,7 +47,6 @@
 					content:content||""
 				};
 				editForm.ldatabind(data);
-				console.log(data,editForm);
 				editForm.quickmodal({
 					title:editForm.attr("title"),
 					actions:{
@@ -87,78 +78,23 @@
 			});
 		});
 	</script>
-	<style type="text/less">
-		[data-markdown] {
-			position:relative;
-			p {margin:0.2em 0;}
-			.actions {position:absolute;right:2px;bottom:2px;margin:0;
-				.btn-edit {visibility: hidden;}	
-			}
-			&:hover { 
-				.actions .btn-edit {visibility: visible;}
-			}
-		}
-		.page-header { margin-bottom:14px; }
-		.footer {margin-top:4em;padding:1em;background:#F5f5f5;font-family: Georgia;}
-		textarea {font-family:consolas;}
-	</style>
+	<link rel="stylesheet/less" href="style.less">
 	<script src="libs/less-1.2.2.min.js"></script>
 </head>
 <body>
 	<div class="container">
 		<h1 class="page-header"> MD-Portal </h1>
-
-		<div class="row">
-			<div class="span8">
-				<section data-markdown="subtitle">
-					
-				</section>
-				<br>
-				<div class="row-fluid">
-					<div class="span4">
-						<section data-markdown="first-row-span1"></section>
-					</div>
-					<div class="span4">
-						<section data-markdown="first-row-span2"></section>
-					</div>
-					<div class="span4">
-						<section data-markdown="first-row-span3"></section>
-					</div>
-				</div>
-				<hr>
-				<div class="row-fluid">
-					<div class="span4">
-						<section data-markdown="2nd-row-span1"></section>
-					</div>
-					<div class="span4">
-						<section data-markdown="2nd-row-span2"></section>
-					</div>
-					<div class="span4">
-						<section data-markdown="2nd-row-span3"></section>
-					</div>
-				</div>
-			</div>
-			<div class="span4">
-				<section class="alert alert-warning" data-markdown="side-row">
-					
-				</section>
-				<div class="mod">
-					<div class="mod-body">
-						<section data-markdown="side-row-2"></section>
-					</div>
-				</div>
-			</div>
+		<div id="content">
+			
 		</div>
+		<script>
+			$("#content").load("layouts/portal.html",function(){
+				init();
+			});
+		</script>
 	</div>
 
 
-	<div class="footer text-center">
-		<div class="container">
-			<section class="muted" data-markdown="footer">
-				
-			</section>
-		</div>
-	</div>
 
 	<!--  Form (Hidden) -->
 	<div class="md-edit-form hide" title="Edit Form">
