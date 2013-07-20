@@ -20,62 +20,36 @@
 	<script src="classes.js"></script>
 	<script>
 
-		var init = (function(){
-			var App = window.App;
-			var model = App.initModel();
-			var tmplActions = '<p class="actions"><a href="" class="btn btn-mini btn-edit">Edit</a></p>';
-
-			var updateDom = function updateDom($el){
-				var key = $el.attr("data-markdown");
-				var value = App.model.get(key);
-				var content = $("<div>",{"class":"md-content"})
-				$el.empty();
-				if(!value){
-					value="*Empty*";
-					content.addClass("muted");
-				}
-				var html = markdown.toHTML(value);
-				content.append(html).appendTo($el);
-				$el.append(tmplActions);
-			};
-			var editForm = $(".md-edit-form");
-			var editMarkdown = function editMarkdown($el){	
-				var key = $el.attr("data-markdown");
-				var content = App.model.get(key);
-				var data = {
-					key:key,
-					content:content||""
-				};
-				editForm.ldatabind(data);
-				editForm.quickmodal({
-					title:editForm.attr("title"),
-					actions:{
-						Save:function(){
-							var _data = editForm.ldata();
-							var data = {};data[key] = _data.content;
-							App.model.save(data,{success:function(){
-								App.model.trigger("sync");
-							}});	
-							editForm.quickmodal("hide");
-						},
-						Cancel:function(){
-							editForm.quickmodal("hide");
-						}
-					}
-				});
-			}
-
-			$("[data-markdown]").each(function(){
-				var el = this,
-					$el = $(this);
-				App.model.on("sync",function(){
-					updateDom($el,model);
-				});
-				$el.on("click",".btn-edit",function(e){
-					e.preventDefault();
-					editMarkdown($el);
-				});
+		$(function(){
+			$("#content").load("layouts/portal.html",function(){
+				App.init();
 			});
+		});
+		App.init = (function(){
+			var App = window.App;
+			var model = App.getModel();
+			Router = Backbone.Router.extend({
+				routes:{
+					"page/":"page",
+					"page/:name":"page"
+				},
+				page:function(name){
+					if(!name)name=false;
+					App.getModel().setPage(name);
+					console.log("page");
+				}
+			});
+			App.router = new Router();
+			var isNaved = Backbone.history.start({
+				// pushState: true, 
+				// root: "/page/"
+			});
+			if(!isNaved)App.router.navigate("page/");
+			$("[data-markdown]").each(function(){
+				new App.MDSectionView({el:this,model:model});
+			});
+			// App.getModel().setPage();
+			// model.fetch();
 		});
 	</script>
 	<link rel="stylesheet/less" href="style.less">
@@ -84,20 +58,11 @@
 <body>
 	<div class="container">
 		<h1 class="page-header"> MD-Portal </h1>
-		<div id="content">
-			
-		</div>
-		<script>
-			$("#content").load("layouts/portal.html",function(){
-				init();
-			});
-		</script>
+		<div id="content"></div>
 	</div>
 
-
-
-	<!--  Form (Hidden) -->
-	<div class="md-edit-form hide" title="Edit Form">
+	<!--  Editor Form (Hidden) -->
+	<div class="md-edit-form hide" data-backdrop="static" title="Edit Form">
 		<form action="" class="form">
 			<pre data-text="key"></pre>
 			<label for="">Markdown</label>

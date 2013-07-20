@@ -24,7 +24,7 @@
 	$.fn.quickmodal = function(config){
 		var that = this,
 			$el = $(this);
-		if(typeof(config)=="string"){
+		if(typeof(config)=="string"){ //config is an action
 			var domModal = $(that).data("quickmodal");
 			if(!domModal)return false;
 			switch(config){
@@ -37,7 +37,6 @@
 			return domModal;
 		}
 
-		var domModal = $("<div>",{"class":"modal hide"});
 		config = $.extend({
 			title:"Title",
 			actions:{
@@ -46,6 +45,15 @@
 				}
 			}
 		},config);
+		var domdata = {};
+		var keys = "data-backdrop,data-keyboard,data-show,data-remove".split(",");
+		$.each(keys,function(i,key){
+			console.log(key,$el);
+			var val = $el.attr(key);
+			if(val)domdata[key]=val;
+		});
+		var domModal = $("<div>",$.extend({"class":"modal hide"},domdata));
+
 		domModal.data("data",config);
 		var html = '<div class="modal-header">'
 				+'<button type="button" class="close" data-dismiss="modal" '
@@ -59,11 +67,12 @@
 		//append Actions
 		var footer = domModal.find(".modal-footer");
 		$.each(config.actions,function(key,value){
-			$("<button>",{type:"button",class:"btn",text:key}).click(value).appendTo(footer);
+			$("<button>",{type:"button",class:"btn","data-action":key,text:key}).click(value).appendTo(footer);
 		});
 		domModal.modal("show");
 
 		$el.data("quickmodal",domModal).show();
+		if(config.callback)config.callback(domModal);
 		return domModal;
 	};
 })(jQuery);
