@@ -30,13 +30,13 @@
 			var model = App.getModel();
 			Router = Backbone.Router.extend({
 				routes:{
-					"page/":"page",
+					"root/":"page",
 					"page/:name":"page"
 				},
 				page:function(name){
 					if(!name)name=false;
 					App.getModel().setPage(name);
-					console.log("page");
+					// console.log("page");
 				}
 			});
 			App.router = new Router();
@@ -44,7 +44,7 @@
 				// pushState: true, 
 				// root: "/page/"
 			});
-			if(!isNaved)App.router.navigate("page/");
+			if(!isNaved)App.router.navigate("root/",{trigger:true});
 			$("[data-markdown]").each(function(){
 				new App.MDSectionView({el:this,model:model});
 			});
