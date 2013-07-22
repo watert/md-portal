@@ -8,6 +8,6 @@ routing use `#` url: `http://localhost/p/#pagename`
 
 # TODOS
 
-- ~~~Wiki like routing.~~~
-- Base info editing. (Layout, Title, .etc)
-- Authentification
+- [x] Wiki like routing.
+- [] Base info editing. (Layout, Title, .etc)
+- [] Authentification
