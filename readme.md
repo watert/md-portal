@@ -9,5 +9,5 @@ routing use `#` url: `http://localhost/p/#pagename`
 # TODOS
 
 - [x] Wiki like routing.
-- [] Base info editing. (Layout, Title, .etc)
-- [] Authentification
+- [ ] Base info editing. (Layout, Title, .etc)
+- [ ] Authentification
