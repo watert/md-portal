@@ -78,7 +78,7 @@ App.MDSectionView = Backbone.View.extend({
 		}else {
 			content.removeClass("muted");
 		}
-		var html = markdown.toHTML(value);
+		var html = marked.parse(value);
 		console.log("update",key,value,html,content);
 		// console.log(html,content);
 		content.html(html);
