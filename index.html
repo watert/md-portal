@@ -19,7 +19,10 @@
 
 	<script src="classes.js"></script>
 	<script>
-
+		marked.setOptions({
+			breaks:true,
+			sanitize:false
+		});
 		$(function(){
 			$("#content").load("layouts/portal.html",function(){
 				App.init();

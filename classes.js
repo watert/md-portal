@@ -82,6 +82,9 @@ App.MDSectionView = Backbone.View.extend({
 		console.log("update",key,value,html,content);
 		// console.log(html,content);
 		content.html(html);
+		content.find("a").attr("target","_blank");
+		content.find("table").addClass("table");
+
 	},
 	edit:function(){	
 		var key = this.key;
