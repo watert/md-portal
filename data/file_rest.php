@@ -20,10 +20,9 @@ Class FRest {
 	}
 	function load($fpath){
 		$this->fpath = $this->base_path.$fpath;
-		$this->is_exists = file_exists($fpath);
-
+		$this->is_exists = file_exists($this->fpath);
 		if($this->is_exists){
-			$this->content = file_get_contents($fpath);
+			$this->content = file_get_contents($this->fpath);
 			$this->obj = json_decode($this->content,true);
 		}else {
 			$this->content = "";
@@ -122,7 +121,7 @@ class FRestHTTP {
 
 		$this->method = $_SERVER["REQUEST_METHOD"];
 		if($this->method!="GET"&&!$this->frest->is_writable()){
-			http_400("file not writable, might not having appropriate permission of folder or file. ");
+			$this->http_400("file not writable, might not having appropriate permission of folder or file. ");
 		}
 	}
 	/* HTTP Part */
@@ -235,7 +234,7 @@ class FRestHTTP {
 
 
 
-$frh = new FRestHTTP("./");
+$frh = new FRestHTTP("./json/");
 $frh->set_request();
 
 
