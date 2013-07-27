@@ -1,7 +1,7 @@
 <IfModule mod_rewrite.c>
 RewriteEngine On
-RewriteRule ^file_rest\.php$ - [L]
+RewriteRule ^index\.php$ - [L]
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
-RewriteRule list|json|file file_rest.php [L]
+RewriteRule list|json|file index.php [L]
 </IfModule>

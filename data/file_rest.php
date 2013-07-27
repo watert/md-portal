@@ -234,8 +234,3 @@ class FRestHTTP {
 
 
 
-$frh = new FRestHTTP("./json/");
-$frh->set_request();
-
-
-

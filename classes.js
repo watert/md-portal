@@ -10,7 +10,7 @@ App.PageModel = Backbone.Model.extend({
 	setPage:function(pagename){
 		pagename = pagename||"md-portal";
 		var that = this;
-		this.url = "data/file_rest.php?f="+pagename+".json"
+		this.url = "data/item/"+pagename+".json"
 		// console.log("setpage",pagename);
 		this.clear({silent:true});
 		this.fetch({error:function(){
