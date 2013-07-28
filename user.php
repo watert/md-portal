@@ -12,7 +12,7 @@
 	<link rel="stylesheet" href="libs/bootstrap2/css/bootstrap-responsive.css">
 	<script src="libs/bootstrap2/js/bootstrap.min.js"></script>
 	<script src="libs/bootstrap.quickform.js"></script>
-	<link rel="stylesheet" href="libs/bootstrap.mod.css">
+	<link rel="stylesheet/less" href="libs/bootstrap.mod.less">
 	
 	<script src="libs/jQuery.lightDataBind.js"></script>
 	<script src="libs/marked.js"></script>
@@ -27,10 +27,6 @@
 			$("#content").load("layouts/portal.html",function(){
 				App.init();
 			});
-			var loginlink = (function(dom){
-				var href = dom.attr("href");
-				dom.attr("href",href+location.href);
-			})($(".linkLogin"));
 		});
 		App.init = (function(){
 			var App = window.App;
@@ -58,12 +54,11 @@
 			// model.fetch();
 		});
 	</script>
-	<link rel="stylesheet" href="style.css">
-	<!-- <script src="libs/less-1.2.2.min.js"></script> -->
+	<link rel="stylesheet/less" href="style.less">
+	<script src="libs/less-1.2.2.min.js"></script>
 </head>
 <body>
 	<div class="container">
-		<a class="pull-right linkLogin" href="data/?login&callback=">Login</a>
 		<h1 class="page-header"> MD-Portal </h1>
 		<div id="content"></div>
 	</div>

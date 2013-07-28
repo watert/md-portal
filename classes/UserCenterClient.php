@@ -1,13 +1,18 @@
 <?php
 /**
+ * github: https://github.com/watert/usercenter
  * example:
  * $ucc = new UserCenterClient();
  * $user = $ucc->getUser();
  */
 
 class UserCenterClient {
-	var $baseUrl = "http://localhost:3000/sso";
-	var $checkUrl = "http://localhost:3000/sso/check";
+	// var $host = "http://waterwu.me:3003";
+	var $baseUrl = "/sso";
+	var $checkUrl = "/sso/check";
+	function __construct($host="http://waterwu.me:3003"){
+		$this->host = $host;
+	}
 	function currentUrl(){
 		return "http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
 	}
@@ -21,9 +26,14 @@ class UserCenterClient {
 		header("location: $url");
 
 	}
+	function login($callback=false){ // return to callback
+		$currentUrl = $this->currentUrl();
+		$user = $this->getUser();
+		if($user)header("location: $callback");
+	}
 	function getUser(){
-		$baseUrl = $this->baseUrl;
-		$checkUrl = $this->checkUrl;
+		$baseUrl = $this->host.$this->baseUrl;
+		$checkUrl = $this->host.$this->checkUrl;
 		$currentUrl = $this->currentUrl();
 
 		// SESSION
