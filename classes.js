@@ -1,23 +1,63 @@
+
+marked.setOptions({
+	breaks:true,
+	sanitize:false
+});
 window.App = {};
 App.editForm = function(){
 	return $(".md-edit-form");
 };
+App.initPage = function initPage(dom,callback){
+	if(!dom)dom=$("#content");
+	var model = App.getModel();
+	var layout = model.get("layout")||"portal";
+	var layoutUrl = "layouts/"+layout+".html";
+	// console.log(layoutUrl,model.toJSON());
+	dom.load(layoutUrl,function(){
+		$("[data-markdown]").each(function(){
+			new App.MDSectionView({
+				el:this,
+				model:model
+			});
+		});	
+		if(_.isFunction(callback))callback();
+	});
+}
+App.PageRouter = Backbone.Router.extend({
+	routes:{
+		"*page":"page"
+	},
+	page:function(name){
+		App.getModel().setPage(name||false);
+	}
+});
 App.PageModel = Backbone.Model.extend({
 	defaults:{	
 		id:"md-portal",
+		layout:"portal",
+		title:"Default Page Title",
 		subtitle:"*This is an Empty Page, Edit it.*"
+	},
+	parse:function(res,options){
+		return _.defaults(res,this.defaults);
+		return res;
 	},
 	setPage:function(pagename){
 		pagename = pagename||"md-portal";
 		var that = this;
+		that.trigger("beforeSetPage");
 		this.url = "data/item/"+pagename+".json"
 		// console.log("setpage",pagename);
 		this.clear({silent:true});
-		this.fetch({error:function(){
-			console.log("error");
-			that.set(that.defaults);
-			that.trigger("change");
-		}});
+		this.fetch({
+			success:function(){
+				that.trigger("setPage");
+			},
+			error:function(){
+				that.set(that.defaults);
+				that.trigger("change");
+			}
+		});
 		return this;
 	}
 });
@@ -34,6 +74,7 @@ App.getModel = function(name){
 	App.model = model;
 	return model;
 };
+
 App.MDSectionView = Backbone.View.extend({
 	tmplActions:'<p class="actions">'
 			+'<a href="" class="btn btn-mini btn-edit">Edit</a>'
@@ -54,6 +95,7 @@ App.MDSectionView = Backbone.View.extend({
 		model.on("change",function(){
 			that.update(that.$el,model);
 		});
+		that.update(that.$el,model);
 	},
 	initDom:function(){
 		var content = this.$(".md-content");
@@ -79,7 +121,7 @@ App.MDSectionView = Backbone.View.extend({
 			content.removeClass("muted");
 		}
 		var html = marked.parse(value);
-		console.log("update",key,value,html,content);
+		// console.log("update",key,value,html,content);
 		// console.log(html,content);
 		content.html(html);
 		content.find("a").attr("target","_blank");
@@ -99,7 +141,7 @@ App.MDSectionView = Backbone.View.extend({
 			title:editForm.attr("title"),
 			actions:{
 				Save:function(e){
-					console.log("save",e,e.target);
+					// console.log("save",e,e.target);
 					// $(e.target).addClass("btn-primary");
 
 					var _data = editForm.ldata();

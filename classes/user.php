@@ -5,7 +5,8 @@ class MyUCC extends UserCenterClient {
 		return parent::getUser(); //includes SESSION & SSO
 	}
 }
-$ucc = new MyUCC("http://www.waterwu.me:3003");
+// $ucc = new MyUCC("http://www.waterwu.me:3003");
+$ucc = new MyUCC("http://waterwu.me:3003");
 
 $admin_user = "watert";
 function getUser(){
@@ -19,6 +20,9 @@ function login($callback=false){
 	$ucc->login($callback);
 }
 function isEditable(){
-	$user = getUser();
-	if($user==$admin_user)return true;
+	global $ucc;
+	global $admin_user;
+	$user = $ucc->loginedUser();
+	if($user["name"]==$admin_user)return true;
+	else return false;
 }

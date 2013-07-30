@@ -35,6 +35,7 @@ class UserCenterClient {
 	// private function loginByTicket()
 	function loginedUser(){
 		if(isset($_SESSION["user"])&&is_array($_SESSION["user"])){
+
 			if(isset($_GET["ticket"])){ //redirect and remove ticket
 				$url = preg_replace('/(?:&|(\?))' . "ticket" . '=[^&]*(?(1)&|)?/i', "$1", $currentUrl);
 				if(substr($url, -1)=="?"){
@@ -55,14 +56,10 @@ class UserCenterClient {
 		// SESSION
 		$user = $this->loginedUser();
 		if($user)return $_SESSION["user"];
-
+		
 		// TICKETS
-		if(isset($_GET["ticket"])){
-			$ticket = $_GET["ticket"];			
-		}
-		else {
-			$ticket = null;
-		}
+		if(isset($_GET["ticket"]))$ticket = $_GET["ticket"];
+		else $ticket = null;
 		if($ticket){
 			$url = "$checkUrl?ticket=$ticket";
 			$user = json_decode(file_get_contents($url),true);
@@ -72,8 +69,6 @@ class UserCenterClient {
 		}else {
 			$query = http_build_query(array("callback"=>$currentUrl));
 			$url = "$baseUrl?$query";
-			// exit("$query, $url");
-
 			header("location: $url");
 		}
 	}
