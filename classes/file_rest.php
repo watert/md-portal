@@ -108,11 +108,15 @@ Class FRest {
 }
 
 
-class FRestHTTP {
+class FRestRouter {
+	/* Hooks */
+	public function isEditable(){
+		return true;
+	}
+
 	public function __construct($base_path)
 	{
 		// Default use Backbonejs input type: Content inside `php://input` .
-
 
 		$this->parse_query();
 		// Init File Rest handler
@@ -130,21 +134,24 @@ class FRestHTTP {
 	}
 	static function http_400($json){ 
 		header( 'HTTP/1.1 400 BAD REQUEST' );
-		FRestHTTP::http_json($json);
+		FRestRouter::http_json($json);
 		exit();
 	}
 	static function http_json_raw($data){ 
 		header("Content-Type:application/json");
-		FRestHTTP::http_ret($data); 
+		FRestRouter::http_ret($data); 
 	}
 	static function http_json($data){ 
 		$data = json_encode($data);
-		FRestHTTP::http_json_raw($data);
+		FRestRouter::http_json_raw($data);
 	}
-	function set_request(){
+	function start(){
 		$method = $this->method;
+		if($method!="GET"&&!$this->isEditable()){
+			$this->http_400("No auth to edit");
+		}
 		$frest = $this->frest;
-		$data = $this->data;
+		$data = $this->post_data();
 		if($this->is_list){
 			$frest->list_init();
 			switch($method){
@@ -152,8 +159,6 @@ class FRestHTTP {
 					http_json($frest->list_get());
 					break;
 				case "PATCH":
-					// $frest->patch($data)->save();
-					// http_json($frest->get());
 					break;
 				case "PUT":
 				case "POST":
@@ -195,11 +200,14 @@ class FRestHTTP {
 			}
 		}
 	}
-	function parse_query(){
+	function post_data(){
+
 		$data = json_decode(file_get_contents('php://input'),true);
 		if(!$data)$data = $_POST;
-		$this->data = $data;
-
+		// $this->data = $data;
+		return $data;	
+	}
+	function parse_query(){
 		if(isset($_GET["f"])){ // Original Fashion: using QUERYSTRING as input, non need of apache rewrite support
 			$fpath = $_GET["f"];
 			$is_list = isset($_GET["list"]);

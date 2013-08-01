@@ -1,0 +1,130 @@
+.mod {
+  font-size: 14px;
+  border: 1px solid #d9d9d9;
+  border-radius: 3px;
+  margin-bottom: 1em;
+  border-color: #bfbfbf;
+}
+.mod .mod-body,
+.mod .mod-header,
+.mod .mod-footer {
+  padding: 6px;
+  min-height: 1em;
+}
+.mod .mod-header {
+  border-bottom: 1px solid #ebebeb;
+  margin-bottom: 5px;
+}
+.mod .mod-header strong,
+.mod .mod-header h3,
+.mod .mod-header h4,
+.mod .mod-header h5,
+.mod .mod-header h6 {
+  margin: 0;
+  font-size: 14px;
+}
+.mod .mod-header .btn {
+  margin-top: -1px;
+}
+.mod .btn {
+  padding: 0px 6px;
+}
+.mod strong,
+.mod h3,
+.mod h4,
+.mod h5,
+.mod h6 {
+  color: #999999;
+}
+.mod .mod-header {
+  background-color: #f2f2f2;
+  border-color: #ececec;
+}
+.mod .mod-footer {
+  background-color: #f9f9f9;
+}
+.mod-warning {
+  border-color: #fbd9b6;
+}
+.mod-warning strong,
+.mod-warning h3,
+.mod-warning h4,
+.mod-warning h5,
+.mod-warning h6 {
+  color: #f0b375;
+}
+.mod-warning .mod-header {
+  background-color: #fef7f0;
+  border-color: #fef4e9;
+}
+.mod-warning .mod-footer {
+  background-color: #fefbf8;
+}
+.mod-success {
+  border-color: #47eb47;
+}
+.mod-success strong,
+.mod-success h3,
+.mod-success h4,
+.mod-success h5,
+.mod-success h6 {
+  color: #22c322;
+}
+.mod-success .mod-header {
+  background-color: #dafbda;
+  border-color: #c8f9c8;
+}
+.mod-success .mod-footer {
+  background-color: #effbef;
+}
+.mod-info {
+  border-color: #a3daf5;
+}
+.mod-info strong,
+.mod-info h3,
+.mod-info h4,
+.mod-info h5,
+.mod-info h6 {
+  color: #67bbe4;
+}
+.mod-info .mod-header {
+  background-color: #edf8fd;
+  border-color: #e3f4fc;
+}
+.mod-info .mod-footer {
+  background-color: #f7fbfd;
+}
+.mod-error {
+  border-color: #f5a3a3;
+}
+.mod-error strong,
+.mod-error h3,
+.mod-error h4,
+.mod-error h5,
+.mod-error h6 {
+  color: #e46767;
+}
+.mod-error .mod-header {
+  background-color: #fdeded;
+  border-color: #fce3e3;
+}
+.mod-error .mod-footer {
+  background-color: #fdf7f7;
+}
+.mod-primary {
+  border-color: #197fe6;
+}
+.mod-primary strong,
+.mod-primary h3,
+.mod-primary h4,
+.mod-primary h5,
+.mod-primary h6 {
+  color: #1b5998;
+}
+.mod-primary .mod-header {
+  background-color: #d1e5fa;
+  border-color: #bad9f7;
+}
+.mod-primary .mod-footer {
+  background-color: #ebf2fa;
+}
