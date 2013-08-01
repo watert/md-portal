@@ -25,9 +25,11 @@ App.initPage = function initPage(dom,callback){
 }
 App.PageRouter = Backbone.Router.extend({
 	routes:{
+		"*page/":"page",
 		"*page":"page"
 	},
 	page:function(name){
+		console.log("paging",name);
 		App.getModel().setPage(name||false);
 	}
 });

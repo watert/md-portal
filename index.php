@@ -1,7 +1,9 @@
+<?php require_once("classes/html_helpers.php"); ?>
 <!doctype html>
-<html lang="en">
+<html lang="en"> 
 <head>
 	<meta charset="UTF-8">
+	<base href="<?=baseurl();?>">
 	<title>
 		统一Portal | Markdown based editable Portal.
 	</title>
@@ -49,9 +51,10 @@
 			});
 			// Init router
 			App.router = new App.PageRouter();
-			if(!Backbone.history.start()){
-				App.router.navigate("root/",{trigger:true});
-			}
+			App.router.on("all",function(e,a,b){
+				console.log(e,a,b);
+			});
+			Backbone.history.start({root:"/md-portal-main/",pushState: true});
 
 			UserCenterClient({
 				callback:function(user){
@@ -114,8 +117,8 @@
 			</form>
 	    </div>
 	    <div class="modal-footer">
-	        <a href="#" class="btn">Close</a>
-	        <a href="#" class="btn-save btn btn-primary">Save changes</a>
+	        <a href="javascript:void(0)" class="btn">Close</a>
+	        <a href="javascript:void(0)" class="btn-save btn btn-primary">Save changes</a>
 	    </div>
 	</div>
 
