@@ -1,4 +1,4 @@
-body {font-family: helvetica,"Hiragino Sans GB";}
+body {font-family: helvetica,"Hiragino Sans GB"; }
 .actions,.page-actions {display:none;}
 body.page-editable {
 	.actions,.page-actions {display:inherit;}
@@ -18,3 +18,16 @@ body.page-editable {
 .page-header { margin-bottom:14px; }
 .footer {margin-top:4em;padding:1em;background:#F5f5f5;font-family: Georgia;}
 textarea {font-family:consolas;}
+
+@import "libs/elements.less";
+.lGradient(@color,@percent:10%) { .gradient(@color,darken(@color,@percent),@color); }
+// Theme
+#header {
+	@bgColor:hsl(205,80%,70%);
+	background:@bgColor;border-bottom:1px solid darken(@bgColor,10%);margin-bottom:20px;
+	text-shadow:0 -1px 0px rgba(0,0,0,0.6);color:#FFF;
+	.page-header{line-height:1em;margin:1em 0 0.5em;padding:0;font-size:16px;border:none;}
+}
+h3 {
+	// .lGradient(hsl(210,100%,90%),2%);border-radius:5px; border:1px solid hsl(210,80%,85%);
+}

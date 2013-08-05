@@ -10,9 +10,10 @@
 	<script src="libs/jquery-1.7.1.min.js"></script>
 	<script src="libs/underscore+backbone.js"></script>
 	<!-- Bootstrap -->
-	<link rel="stylesheet" href="libs/bootstrap2/css/bootstrap.min.css">
-	<link rel="stylesheet" href="libs/bootstrap2/css/bootstrap-responsive.css">
-	<script src="libs/bootstrap2/js/bootstrap.min.js"></script>
+	<link rel="stylesheet" href="libs/bootstrap/css/bootstrap.min.css">
+	<link rel="stylesheet" href="libs/bootstrap/css/bootstrap-responsive.css">
+	<link rel="stylesheet" href="libs/bootstrap/css/font-awesome.css">
+	<script src="libs/bootstrap/js/bootstrap.min.js"></script>
 	<script src="libs/bootstrap.quickform.js"></script>
 	<link rel="stylesheet" href="libs/bootstrap.mod.css">
 	
@@ -54,25 +55,25 @@
 			App.router.on("all",function(e,a,b){
 				console.log(e,a,b);
 			});
-			Backbone.history.start({root:"/md-portal-main/",pushState: true});
+			Backbone.history.start({root:location.pathname,pushState: true});
 
-			UserCenterClient({
-				callback:function(user){
-					console.log("user",user);
-					$("body").addClass("page-editable");
-				}
-			});
+			$("body").addClass("page-editable");
+
 		});
 	</script>
-	<script src="classes/UCCBrowser.js"></script>
-	<link rel="stylesheet" href="style.css">
+	
+	<!-- <link rel="stylesheet" href="style.css"> -->
 	<link rel="stylesheet/less" href="style.less">
-	<script src="libs/less-1.2.2.min.js"></script>
+	<script src="libs/less-1.4.2.min.js"></script>
 </head>
 <body>
+	<div id="header">
+		<div class="container">
+			<h1 class="page-header"> </h1>
+		</div>
+	</div>
 	<div class="container">
 		<!-- <a class="pull-right linkLogin" href="data/?login&callback=">Login</a> -->
-		<h1 class="page-header"> </h1>
 		<div id="content"></div>
 		<div id="footer">
 			<hr>

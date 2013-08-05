@@ -57,7 +57,9 @@ App.PageModel = Backbone.Model.extend({
 			},
 			error:function(){
 				that.set(that.defaults);
-				that.trigger("change");
+				console.warn("No Default Page Founded, seted an empty page.");
+				that.trigger("setPage");
+				// that.trigger("change");
 			}
 		});
 		return this;
