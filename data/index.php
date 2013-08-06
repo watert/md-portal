@@ -6,8 +6,8 @@ class MyRouter extends FRestRouter
 		parent::__construct($base);
 		//Login Actions Here
 	}
-	public function isEditable(){
-		$editable = parent::isEditable();
+	public function isEditable($f){
+		$editable = parent::isEditable($f);
 		// Editing Authentification
 		return $editable;
 	}

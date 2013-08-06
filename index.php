@@ -34,7 +34,9 @@
 			model.on("setPage",initPage);
 
 			// Set Form for editing Page contents
-			var pageForm = $("#pageForm").modal({show:false});
+			var pageForm = $("#pageForm")
+				.modal({show:false});
+			// model.on("all",function);
 			model.on("change",function(){
 				pageForm.ldata(this.toJSON());
 			});
