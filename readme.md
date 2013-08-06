@@ -11,4 +11,5 @@ routing use `#` url: `http://localhost/p/#pagename`
 - <del> Wiki like routing. </del>
 - <del> Base info editing. (Layout, Title, .etc) </del>
 - <del> Authentification </del> (half supported via extending class)
-
+- responsive layout
+- menu support for standard html
