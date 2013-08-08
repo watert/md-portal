@@ -110,7 +110,7 @@ Class FRest {
 
 class FRestRouter {
 	/* Hooks */
-	public function isEditable(){
+	public function isEditable($fpath){
 		return true;
 	}
 
@@ -147,7 +147,7 @@ class FRestRouter {
 	}
 	function start(){
 		$method = $this->method;
-		if($method!="GET"&&!$this->isEditable()){
+		if($method!="GET"&&!$this->isEditable($this->fpath)){
 			$this->http_400("No auth to edit");
 		}
 		$frest = $this->frest;

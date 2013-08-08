@@ -3,6 +3,7 @@
 <html lang="en"> 
 <head>
 	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, user-scalable=yes, initial-scale=1.0">
 	<base href="<?=baseurl();?>">
 	<title>
 		统一Portal | Markdown based editable Portal.
@@ -10,9 +11,10 @@
 	<script src="libs/jquery-1.7.1.min.js"></script>
 	<script src="libs/underscore+backbone.js"></script>
 	<!-- Bootstrap -->
-	<link rel="stylesheet" href="libs/bootstrap2/css/bootstrap.min.css">
-	<link rel="stylesheet" href="libs/bootstrap2/css/bootstrap-responsive.css">
-	<script src="libs/bootstrap2/js/bootstrap.min.js"></script>
+	<link rel="stylesheet" href="libs/bootstrap/css/bootstrap.min.css">
+	<link rel="stylesheet" href="libs/bootstrap/css/bootstrap-responsive.css">
+	<link rel="stylesheet" href="libs/bootstrap/css/font-awesome.css">
+	<script src="libs/bootstrap/js/bootstrap.min.js"></script>
 	<script src="libs/bootstrap.quickform.js"></script>
 	<link rel="stylesheet" href="libs/bootstrap.mod.css">
 	
@@ -20,6 +22,7 @@
 	<script src="libs/marked.js"></script>
 
 	<script src="classes.js"></script>
+	<script src="main.js"></script>
 	<script>
 		$(function(){
 			// init model and set page actions
@@ -59,15 +62,19 @@
 			$("body").addClass("page-editable"); // needs to add authentification
 		});
 	</script>
-	<script src="classes/UCCBrowser.js"></script>
+	
 	<link rel="stylesheet" href="style.css">
-	<link rel="stylesheet/less" href="style.less">
-	<script src="libs/less-1.2.2.min.js"></script>
+	<!-- <link rel="stylesheet/less" href="style.less">
+	<script src="libs/less-1.4.2.min.js"></script>  -->
 </head>
 <body>
+	<div id="header">
+		<div class="container">
+			<h1 class="page-header"> </h1>
+		</div>
+	</div>
 	<div class="container">
 		<!-- <a class="pull-right linkLogin" href="data/?login&callback=">Login</a> -->
-		<h1 class="page-header"> </h1>
 		<div id="content"></div>
 		<div id="footer">
 			<hr>

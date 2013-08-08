@@ -11,6 +11,7 @@ App.initPage = function initPage(dom,callback){
 	if(!dom)dom=$("#content");
 	var model = App.getModel();
 	var layout = model.get("layout")||"portal";
+	dom.attr("data-layout",layout);
 	var layoutUrl = "layouts/"+layout+".html";
 	// console.log(layoutUrl,model.toJSON());
 	dom.load(layoutUrl,function(){
@@ -57,7 +58,9 @@ App.PageModel = Backbone.Model.extend({
 			},
 			error:function(){
 				that.set(that.defaults);
-				that.trigger("change");
+				console.warn("No Default Page Founded, seted an empty page.");
+				that.trigger("setPage");
+				// that.trigger("change");
 			}
 		});
 		return this;
