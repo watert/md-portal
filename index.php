@@ -56,12 +56,7 @@
 			});
 			Backbone.history.start({root:"/md-portal-main/",pushState: true});
 
-			UserCenterClient({
-				callback:function(user){
-					console.log("user",user);
-					$("body").addClass("page-editable");
-				}
-			});
+			$("body").addClass("page-editable"); // needs to add authentification
 		});
 	</script>
 	<script src="classes/UCCBrowser.js"></script>
